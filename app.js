@@ -2,6 +2,78 @@ const STORAGE_KEY = "brainManual.principles.v1";
 const DAILY_KEY = "brainManual.daily.v1";
 const DEFAULT_SCENES = ["想消费", "拖延", "饭后", "起床", "低落", "想逃避"];
 const DOMAINS = ["金钱", "身体", "关系", "工作", "情绪", "成长"];
+const STARTER_PRINCIPLES = [
+  {
+    reminder: "家里只放我看第一眼就有生命力的东西。",
+    action: "拿起这个东西，问自己：我第一眼看到它，是被滋养，还是只是觉得“还能用”？如果不是被滋养，就不要买；已经拥有的，就移出主要视线。",
+    scenes: ["买家居", "整理房间", "想囤东西", "换装饰", "收拾桌面"],
+    domain: "身体",
+    note: "家里的东西会反复进入我的眼睛，慢慢塑造我的状态。能留在身边的，应该让我变安静、变舒展、变有生命力。",
+  },
+  {
+    reminder: "不做主观判断，只做事实记录。",
+    action: "把脑子里的评价改写成可观察事实：谁、在什么时候、做了什么、产生了什么结果。",
+    scenes: ["情绪上头", "判断他人", "复盘", "沟通前"],
+    domain: "情绪",
+    note: "先回到事实，判断才不会被情绪带走。",
+  },
+  {
+    reminder: "准时出摊。",
+    action: "到点就进入工作位置，先开始十分钟，不等状态、不等灵感。",
+    scenes: ["拖延", "开始工作", "写作", "学习"],
+    domain: "工作",
+    note: "像摊主一样稳定出现，让系统相信我会来。",
+  },
+  {
+    reminder: "无论你是什么身份，都用职业选手的态度对待当下的任务。",
+    action: "先问：如果我是职业选手，此刻会怎么准备、怎么执行、怎么复盘？然后照做第一步。",
+    scenes: ["运动", "写作", "做任务", "状态松散"],
+    domain: "成长",
+    note: "运动时想象自己是职业运动员，写作时想象自己是村上春树。",
+  },
+  {
+    reminder: "不把结果与自尊心绑定。",
+    action: "把结果写成反馈：哪里有效、哪里无效、下一轮改什么。不要把它翻译成我行不行。",
+    scenes: ["失败", "被评价", "发布作品", "考试", "复盘"],
+    domain: "情绪",
+    note: "结果用来校准系统，不用来审判自己。",
+  },
+  {
+    reminder: "系统导向大于目标导向。",
+    action: "把目标改写成今天可重复的动作：时间、地点、触发点、最小动作。",
+    scenes: ["制定计划", "立目标", "习惯养成", "焦虑未来"],
+    domain: "成长",
+    note: "目标给方向，系统负责让它每天发生。",
+  },
+  {
+    reminder: "期望不明确，问题就不明确。",
+    action: "先写清楚我期待什么、对方期待什么、完成标准是什么，再继续讨论问题。",
+    scenes: ["沟通", "关系冲突", "工作协作", "需求不清"],
+    domain: "关系",
+    note: "很多问题不是做不到，而是期待没有被说清楚。",
+  },
+  {
+    reminder: "问题复杂度源于情绪而非事实。",
+    action: "先把事实列三条，再把情绪单独写一行，分开处理。",
+    scenes: ["焦虑", "低落", "关系冲突", "决策困难"],
+    domain: "情绪",
+    note: "事实通常比感受简单，先拆开就有路。",
+  },
+  {
+    reminder: "先出发，路上缺啥补啥。",
+    action: "先做一个最小可行动作，遇到真实缺口时再补工具、资料或能力。",
+    scenes: ["拖延", "准备过度", "新项目", "害怕开始"],
+    domain: "成长",
+    note: "很多缺口只有出发后才会真实出现。",
+  },
+  {
+    reminder: "只有能够被看到的事情才能够被管理。",
+    action: "把这件事外化到一个可见位置：清单、日历、白板、表格或桌面。",
+    scenes: ["混乱", "计划", "复盘", "任务管理"],
+    domain: "工作",
+    note: "看不见的事情会留在脑子里消耗注意力。",
+  },
+];
 
 const state = {
   principles: loadPrinciples(),
@@ -32,10 +104,24 @@ const elements = {
 bootstrap();
 
 function bootstrap() {
+  seedStarterPrinciples();
   populateDomainFilter();
   bindEvents();
   ensureDailyPrinciple();
   render();
+}
+
+function seedStarterPrinciples() {
+  if (state.principles.length > 0) return;
+
+  const now = Date.now();
+  state.principles = STARTER_PRINCIPLES.map((principle, index) => ({
+    ...principle,
+    id: crypto.randomUUID(),
+    enabled: true,
+    createdAt: now + index,
+  }));
+  persistPrinciples();
 }
 
 function bindEvents() {
