@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>大脑操作手册</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Personal Operating Manual</p>
+          <h1>大脑操作手册</h1>
+        </div>
+        <button class="ghost-button" id="openLibraryButton" type="button">原则库</button>
+      </header>
+
+      <section class="today-panel" aria-labelledby="todayTitle">
+        <div class="section-heading">
+          <p class="eyebrow">今日原则</p>
+          <button class="text-button" id="shuffleButton" type="button">换一张</button>
+        </div>
+        <div id="todayCard" class="hero-card"></div>
+      </section>
+
+      <section class="scene-panel" aria-labelledby="sceneTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">当下调用</p>
+            <h2 id="sceneTitle">我现在处在什么场景？</h2>
+          </div>
+          <button class="text-button" id="clearSceneButton" type="button" hidden>收起</button>
+        </div>
+        <div id="sceneChips" class="chip-grid" aria-label="触发场景"></div>
+        <div id="sceneResults" class="scene-results" aria-live="polite"></div>
+      </section>
+
+      <section class="quick-capture" aria-labelledby="captureTitle">
+        <div>
+          <p class="eyebrow">快速记录</p>
+          <h2 id="captureTitle">沉淀一条新原则</h2>
+        </div>
+        <form id="principleForm" class="principle-form">
+          <input type="hidden" id="editingId" />
+          <label>
+            <span>提醒我</span>
+            <textarea id="reminderInput" rows="3" placeholder="例如：见世面要在生产端，不在消费端。" required></textarea>
+          </label>
+          <label>
+            <span>下一步</span>
+            <textarea id="actionInput" rows="2" placeholder="例如：写下我想通过消费获得什么，再找一个生产端替代动作。" required></textarea>
+          </label>
+          <div class="form-grid">
+            <label>
+              <span>适用于</span>
+              <input id="scenesInput" placeholder="想消费、拖延、饭后" />
+            </label>
+            <label>
+              <span>生活领域</span>
+              <select id="domainInput">
+                <option>金钱</option>
+                <option>身体</option>
+                <option>关系</option>
+                <option>工作</option>
+                <option>情绪</option>
+                <option>成长</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            <span>备注</span>
+            <textarea id="noteInput" rows="2" placeholder="可选：背后理由、来源或补充说明。"></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">保存原则</button>
+            <button class="ghost-button" id="cancelEditButton" type="button" hidden>取消编辑</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="library-panel" id="libraryPanel" aria-labelledby="libraryTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">整理</p>
+            <h2 id="libraryTitle">原则库</h2>
+          </div>
+          <select id="domainFilter" aria-label="按生活领域筛选">
+            <option value="all">全部领域</option>
+          </select>
+        </div>
+        <div id="libraryList" class="library-list"></div>
+      </section>
+    </main>
+
+    <template id="emptyTemplate">
+      <div class="empty-state">
+        <p class="empty-title">还没有原则。</p>
+        <p>先写下一句你已经验证过的话，再给它配一个下一步动作。</p>
+      </div>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
