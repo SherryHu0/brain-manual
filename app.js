@@ -1,7 +1,7 @@
 const STORAGE_KEY = "brainManual.principles.v1";
 const DAILY_KEY = "brainManual.daily.v1";
 const STARTER_SEED_KEY = "brainManual.starterSeed.v1";
-const STARTER_VERSION = "2026-05-08-2";
+const STARTER_VERSION = "2026-05-08-3";
 const DEFAULT_SCENES = ["想消费", "拖延", "饭后", "起床", "低落", "想逃避"];
 const DOMAINS = ["金钱", "身体", "关系", "工作", "情绪", "成长"];
 const STARTER_PRINCIPLES = [
@@ -130,6 +130,34 @@ const STARTER_PRINCIPLES = [
     scenes: ["任务收尾", "复盘", "写作", "项目推进", "学习"],
     domain: "工作",
     note: "好的结束，会降低下一次开始的阻力。",
+  },
+  {
+    reminder: "事以密成，不要过早、过度分享正在推进的事情。",
+    action: "在事情还没有形成稳定成果前，先把分享冲动写下来，继续推进下一步，只向真正相关的人同步必要信息。",
+    scenes: ["想分享", "新计划", "项目推进", "社交表达"],
+    domain: "工作",
+    note: "过早分享会消耗行动的能量，也容易让外界反馈提前干扰判断。",
+  },
+  {
+    reminder: "欲望不被跟随，就不会成为行为；它通常只有 3 分钟的体量。",
+    action: "欲望出现时先不行动，计时 3 分钟，只观察身体感受和念头变化，等它自己退潮。",
+    scenes: ["冲动消费", "想刷短视频", "想吃东西", "情绪上头", "欲望来了"],
+    domain: "情绪",
+    note: "欲望不是命令，只是一阵短暂的信号。",
+  },
+  {
+    reminder: "脑子里反刍 1 小时的内容，说出来可能只要 3 分钟。",
+    action: "打开语音，倒脑子 3 分钟，只说事实、感受和卡住点，不追求表达完整。",
+    scenes: ["反刍", "焦虑", "低落", "脑子很满", "睡前"],
+    domain: "情绪",
+    note: "把内容从脑内搬到外部，先清空大脑 CPU。",
+  },
+  {
+    reminder: "想干蠢事时，手写 1 分钟我的身份。",
+    action: "拿纸写下：我是一个不做这件事的人，因为它会消耗我的生命。写满 1 分钟，再决定要不要继续。",
+    scenes: ["想看短剧", "想刷短视频", "冲动行为", "自控力下降"],
+    domain: "成长",
+    note: "身份提醒比临时克制更有力量。",
   },
 ];
 
