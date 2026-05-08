@@ -1,5 +1,7 @@
 const STORAGE_KEY = "brainManual.principles.v1";
 const DAILY_KEY = "brainManual.daily.v1";
+const STARTER_SEED_KEY = "brainManual.starterSeed.v1";
+const STARTER_VERSION = "2026-05-08-2";
 const DEFAULT_SCENES = ["想消费", "拖延", "饭后", "起床", "低落", "想逃避"];
 const DOMAINS = ["金钱", "身体", "关系", "工作", "情绪", "成长"];
 const STARTER_PRINCIPLES = [
@@ -73,6 +75,62 @@ const STARTER_PRINCIPLES = [
     domain: "工作",
     note: "看不见的事情会留在脑子里消耗注意力。",
   },
+  {
+    reminder: "通过标准操作流程控制目标结果。",
+    action: "先写下这件事的固定流程：触发条件、操作步骤、检查标准。之后按流程执行，不靠临场发挥。",
+    scenes: ["制定计划", "复盘", "工作流程", "目标管理"],
+    domain: "工作",
+    note: "结果不只靠愿望控制，更多靠稳定可重复的过程控制。",
+  },
+  {
+    reminder: "决策和行动分离。",
+    action: "先在清醒时做决定，把下一步写清楚；到执行时只照着做，不重新谈判。",
+    scenes: ["拖延", "执行计划", "习惯养成", "意志力不足"],
+    domain: "成长",
+    note: "不要在最想逃避的时候，重新决定自己要不要做。",
+  },
+  {
+    reminder: "当我不想做某事的时候，坚持做这件事本身也是一种技能。",
+    action: "把目标降到最小，只完成一个可交付动作，让自己练习“不想做也能开始”。",
+    scenes: ["拖延", "抗拒", "运动", "写作", "学习"],
+    domain: "成长",
+    note: "这不是单次任务的胜负，而是在训练一种可迁移的执行能力。",
+  },
+  {
+    reminder: "The two-day rule：Never skip two days in a row.",
+    action: "如果昨天已经断了，今天就做最小版本，哪怕只做两分钟，也要把连续中断截住。",
+    scenes: ["习惯中断", "运动", "学习", "写作", "恢复节奏"],
+    domain: "成长",
+    note: "允许一天不完美，但不要让缺席变成新的惯性。",
+  },
+  {
+    reminder: "2 分钟能完成的事情立刻做，不挂后台占据大脑 CPU。",
+    action: "看到一个两分钟内能完成的小事，马上处理；如果不能马上做，就放进一个明确清单。",
+    scenes: ["小任务", "收拾", "消息回复", "任务管理", "混乱"],
+    domain: "工作",
+    note: "小事挂在脑子里，会持续消耗注意力。",
+  },
+  {
+    reminder: "不想干、很难干的事情，先干 5 分钟。",
+    action: "只承诺 5 分钟，打开材料、进入现场、做第一个动作，让新的真实信息带我往前走。",
+    scenes: ["拖延", "困难任务", "害怕开始", "写作", "学习"],
+    domain: "成长",
+    note: "想象里的困难经常失真，开始后的一手信息更可靠。",
+  },
+  {
+    reminder: "72 小时内没启动的事情，往往就不会再做。",
+    action: "决定要做后，在 72 小时内安排一个启动动作：预约、下单、建文档、发消息或完成第一步。",
+    scenes: ["新想法", "计划", "项目启动", "机会判断"],
+    domain: "工作",
+    note: "想法需要在热度还在的时候进入现实，否则很容易停在脑内。",
+  },
+  {
+    reminder: "在完成任何任务前，我做的最后一件事，就是明确具体下一步行动。",
+    action: "收尾前写下下一步：具体动作、发生时间、放在哪里。不要让下次启动从重新想起开始。",
+    scenes: ["任务收尾", "复盘", "写作", "项目推进", "学习"],
+    domain: "工作",
+    note: "好的结束，会降低下一次开始的阻力。",
+  },
 ];
 
 const state = {
@@ -112,16 +170,24 @@ function bootstrap() {
 }
 
 function seedStarterPrinciples() {
-  if (state.principles.length > 0) return;
+  if (localStorage.getItem(STARTER_SEED_KEY) === STARTER_VERSION) return;
 
   const now = Date.now();
-  state.principles = STARTER_PRINCIPLES.map((principle, index) => ({
-    ...principle,
-    id: crypto.randomUUID(),
-    enabled: true,
-    createdAt: now + index,
-  }));
-  persistPrinciples();
+  const existingReminders = new Set(state.principles.map((principle) => principle.reminder));
+  const additions = STARTER_PRINCIPLES.filter((principle) => !existingReminders.has(principle.reminder)).map(
+    (principle, index) => ({
+      ...principle,
+      id: crypto.randomUUID(),
+      enabled: true,
+      createdAt: now + index,
+    }),
+  );
+
+  if (additions.length > 0) {
+    state.principles = [...state.principles, ...additions];
+    persistPrinciples();
+  }
+  localStorage.setItem(STARTER_SEED_KEY, STARTER_VERSION);
 }
 
 function bindEvents() {
