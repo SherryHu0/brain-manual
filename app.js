@@ -1,7 +1,7 @@
 const STORAGE_KEY = "brainManual.principles.v1";
 const DAILY_KEY = "brainManual.daily.v1";
 const STARTER_SEED_KEY = "brainManual.starterSeed.v1";
-const STARTER_VERSION = "2026-05-08-3";
+const STARTER_VERSION = "2026-05-13-1";
 const DEFAULT_SCENES = ["想消费", "拖延", "饭后", "起床", "低落", "想逃避"];
 const DOMAINS = ["金钱", "身体", "关系", "工作", "情绪", "成长"];
 const STARTER_PRINCIPLES = [
@@ -158,6 +158,13 @@ const STARTER_PRINCIPLES = [
     scenes: ["想看短剧", "想刷短视频", "冲动行为", "自控力下降"],
     domain: "成长",
     note: "身份提醒比临时克制更有力量。",
+  },
+  {
+    reminder: "给计划设置保质期：24 小时内没有外部结果，就默认它开始腐烂。",
+    action: "计划写下后，立刻安排一个 24 小时内能产生的外部结果：发一条消息、建一个文件、完成第一步，或让别人能看到进展。",
+    scenes: ["制定计划", "准备过度", "拖延", "新项目", "目标管理"],
+    domain: "工作",
+    note: "计划放得越久，越容易变成自我感动的证据。准备如果不能导向行动，就只是另一种消耗。",
   },
 ];
 
