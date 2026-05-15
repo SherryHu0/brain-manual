@@ -1,7 +1,7 @@
 const STORAGE_KEY = "brainManual.principles.v1";
 const DAILY_KEY = "brainManual.daily.v1";
 const STARTER_SEED_KEY = "brainManual.starterSeed.v1";
-const STARTER_VERSION = "2026-05-13-1";
+const STARTER_VERSION = "2026-05-15-1";
 const DEFAULT_SCENES = ["想消费", "拖延", "饭后", "起床", "低落", "想逃避"];
 const DOMAINS = ["金钱", "身体", "关系", "工作", "情绪", "成长"];
 const STARTER_PRINCIPLES = [
@@ -165,6 +165,20 @@ const STARTER_PRINCIPLES = [
     scenes: ["制定计划", "准备过度", "拖延", "新项目", "目标管理"],
     domain: "工作",
     note: "计划放得越久，越容易变成自我感动的证据。准备如果不能导向行动，就只是另一种消耗。",
+  },
+  {
+    reminder: "拖延时，不要用大脑想，把自己扔到环境里。",
+    action: "立刻移动到任务发生的地方：打开文档、坐到桌前、穿上鞋、进入现场。先让环境接管我，再开始第一个动作。",
+    scenes: ["拖延", "害怕开始", "困难任务", "写作", "运动"],
+    domain: "成长",
+    note: "拖延时继续在脑子里想，只会制造更多阻力。环境比意志力更可靠。",
+  },
+  {
+    reminder: "不开始干蠢事，就不消耗意志力。",
+    action: "在第一步发生前切断入口：关掉页面、把手机放远、离开触发场景，不跟它进入拉扯。",
+    scenes: ["想刷短视频", "想看短剧", "冲动行为", "自控力下降", "欲望来了"],
+    domain: "成长",
+    note: "最省力的自控，是不让自己进入需要自控的局面。",
   },
 ];
 
